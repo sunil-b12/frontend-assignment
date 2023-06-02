@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+body {
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+
+/* General Styling */
+
+.container {
+    --max-width: 1240px;
+    --padding: 1rem;
+    width: min(var(--max-width), 100% - var(--padding)*2);
+    margin-inline: auto;
+}
+
+.even-column {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+}
+
+.grid-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 2rem;
+}
+
+.grid-card-06 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 5rem;
+}
+
+/* .index-module_Slide__vy4u2, .index-module_Container__zFpuF{
+    width: 80% !important;
+    margin-inline: auto;
+} */
+
+.text-4xl {
+    font-size: clamp(2rem, 5vw + 1rem, 4rem);
+    line-height: 1.25;
+    font-weight: bolder;
+}
+
+.block {
+    display: block;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    --tw-text-opacity: 1;
+    color: rgb(55 71 79 / var(--tw-text-opacity));
+}
