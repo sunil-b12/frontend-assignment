@@ -1,12 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { decrementQuantity, incrementQuantity, removeFromCart } from '../../features/userSlice';
 import { NavLink } from 'react-router-dom';
 // cartpage
 
 const Cart = () => {
-  const nav = useNavigate();
   const { carts } = useSelector((store) => store.userInfo);
   const dispatch = useDispatch();
 
@@ -34,13 +32,10 @@ const Cart = () => {
     <>
       {carts.length === 0 ? <h1 className=' container text-2xl font-semibold mt-[2rem]'>Add Some Products to cart</h1> :
         <div className="container mx-auto mt-10">
-
-
           <div className="w-[100%] flex shadow-md my-10 md:grid" >
             <div className="w-[80%] bg-white px-10 py-10 md:w-full">
               <div className="flex justify-between border-b pb-8">
                 <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-                {/* <h2 className="font-semibold text-2xl">{carts.map((data, i)=>i+1)} Items</h2> */}
               </div>
               <div className="flex mt-10 mb-5">
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
@@ -63,49 +58,21 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-center w-1/5">
                       <div className="flex gap-3 mt-2">
-                        <button  onClick={() => dispatch(incrementQuantity(data.id))}>
+                        <button onClick={() => dispatch(incrementQuantity(data.id))}>
                           <i className="fa-solid fa-plus"></i>
                         </button>
                         <input className="rounded border border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-2 pr-2 w-[50px]" type="text" value={data.qty} />
-                        <button  onClick={() => dispatch(decrementQuantity(data.id))}>
+                        <button onClick={() => dispatch(decrementQuantity(data.id))}>
                           <i className="fa-solid fa-minus"></i>
                         </button>
                       </div>
-
-                      {/* <select defaultValue={data.qty} onChange={(e) => {
-
-
-                        dispatch(updateCart({
-                          totalPrice: data.price * e.target.value,
-                          id: data.id,
-                          title: data.title,
-                          price: data.price,
-                          qty: e.target.value,
-                          description: data.description,
-                          category: data.category,
-                          image: data.image,
-                          rating: {
-                            rate: data.rating.rate
-                          }
-                        }));
-
-                      }
-
-                      }
-
-
-                        name="select" id="select" className='w-14 px-2 py-1'>
-                        {[...Array(Number(10)).keys()].map((x) => {
-                          return <option value={x + 1} key={x}>{x + 1}</option>
-                        })}
-                      </select> */}
                     </div>
                     <span className="text-center w-1/5 font-semibold text-sm">${data.price}</span>
                     <span className="text-center w-1/5 font-semibold text-sm">${calculateTotalPrice(data.id)}</span>
                   </div>
                 })
               }
-              <button href="#" className="flex font-semibold text-indigo-600 text-sm mt-10" onClick={nav('/')}>
+              <button href="#" className="flex font-semibold text-indigo-600 text-sm mt-10">
                 <svg className="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
                 Continue Shopping
               </button>
