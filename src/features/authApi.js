@@ -5,6 +5,7 @@ export const authApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://api.escuelajs.co/api/v1"
     }),
+    tagTypes: ['User'],
     endpoints: (builder) => ({
 
         userLogin: builder.mutation({
@@ -12,13 +13,30 @@ export const authApi = createApi({
                 url: '/auth/login',
                 method: 'POST',
                 body: q,
-                header:{
-                    "Authorization": "Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg}"
-                }
-            })
-        })
+
+            }),
+            invalidatesTags: ['User']
+
+        }),
+        userSignUp: builder.mutation({
+            query: (q) => ({
+                url: '/users',
+                method: 'POST',
+                body: q
+            }),
+            invalidatesTags: ['User']
+        }),
+        getUserById: builder.query({
+            query: (q) => ({
+              url: '/auth/profile',
+              headers: {
+                "Authorization": `Bearer ${q}`
+              }
+            }),
+            providesTags: ['User']
+          }),
     })
 })
 
-export const {useUserLoginMutation} = authApi
+export const { useUserLoginMutation, useUserSignUpMutation, useGetUserByIdQuery } = authApi
 

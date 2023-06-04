@@ -23,13 +23,7 @@ const Login = () => {
   const path = state?.form?.pathname || state?.path || '/';
   const dispatch = useDispatch();
 
-
-  // // // const [loginUser, { isLoading }] = useUserLoginMutation();
-
   const [loginUser, { isLoading }] = useUserLoginMutation()
-
-
-
 
 
   const valSchema = Yup.object().shape({
@@ -46,7 +40,7 @@ const Login = () => {
 
       try {
         const response = await loginUser(val).unwrap();
-        dispatch(setUser(response.user));
+        dispatch(setUser(response));
         nav(path, { replace: true });
         toast.success('successfully login');
       } catch (err) {
@@ -107,7 +101,7 @@ const Login = () => {
 
         <Typography color="gray" className="mt-4 text-center font-normal">
           Don't have an account?{" "}
-          <button type="button" onClick={() => nav('/user_signUp')}
+          <button type="button" onClick={() => nav('/user_signup')}
             className="font-medium text-blue-500 transition-colors hover:text-blue-700"
           >
             Sign Up

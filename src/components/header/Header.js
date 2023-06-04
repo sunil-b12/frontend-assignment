@@ -1,16 +1,38 @@
-import React from 'react'
-import Navbar from './Navbar'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from "react";
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
   Button,
+  Typography,
+  Avatar
+
 } from "@material-tailwind/react";
 import Toggle from './Toggle';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearData } from "../../features/userSlice";
+
 
 const Header = () => {
+  const nav = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.userInfo);
+
+  const userProfile = [
+    {
+      label: "My Profile",
+      path: 'userprofile'
+    },
+    {
+      label: "Sign Out",
+      path: "logOut"
+
+    },
+  ];
   return (
     <div className='top-0 left-0  z-30 w-[100%] bg-[#ebba52]'>
       <div className='container grid py-11 gap-5'>
@@ -30,10 +52,10 @@ const Header = () => {
                   </Button>
                 </MenuHandler>
                 <MenuList>
-                  <MenuItem>Electronics</MenuItem>
-                  <MenuItem>Jewelery</MenuItem>
-                  <MenuItem>Men fashion</MenuItem>
-                  <MenuItem>Women fashion</MenuItem>
+                  <MenuItem><NavLink to="/cata/electronics">Electronics</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/cata/jewelery">Jewelery</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/cata/men's clothing">Men fashion</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/cata/women's clothing">Women fashion</NavLink></MenuItem>
                 </MenuList>
               </Menu>
             </div>
@@ -57,9 +79,53 @@ const Header = () => {
             <NavLink to='/cart' type="button">
               <i className="fa-solid fa-cart-shopping fa-2xl text-white"></i>
             </NavLink>
-            <NavLink to='/user_login' className="text-md bg-white border py-2 px-6 font-bold hover:border-transparent rounded">
+            {!user && <NavLink to='/user_login' className="text-md bg-white border py-2 px-6 font-bold hover:border-transparent rounded">
               Login
-            </NavLink>
+            </NavLink>}
+            {user && <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+              <MenuHandler>
+                <Button
+                  variant="text"
+                  color="blue-gray"
+                  className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                >
+                  <Avatar
+                    variant="circular"
+                    size="sm"
+                    alt="candice wu"
+                    className="border border-blue-500 p-0.5"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                  />
+
+                </Button>
+              </MenuHandler>
+              <MenuList className="p-1">
+                {userProfile.map(({ label, path }) => {
+                  return (
+                    <MenuItem
+                      key={label}
+                      onClick={() => {
+                        closeMenu();
+                        if (path === 'logOut') {
+                          dispatch(clearData());
+                        } else {
+                          nav(`/${path}`)
+                        }
+
+                      }}
+                      className="flex items-center gap-2 rounded">
+                      <Typography
+                        as="span"
+                        variant="small"
+                        className="font-normal"
+                      >
+                        {label}
+                      </Typography>
+                    </MenuItem>
+                  );
+                })}
+              </MenuList>
+            </Menu>}
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from 'react-router-dom'
 import {
     Drawer,
     Button,
@@ -13,7 +14,7 @@ const Toggle = () => {
     return (
         <React.Fragment>
             <Button onClick={openDrawer} className="bg-white px-3">
-            <i className="fa-solid fa-bars fa-2xl text-black"></i>
+                <i className="fa-solid fa-bars fa-2xl text-black"></i>
             </Button>
             <Drawer open={open} onClose={closeDrawer} className="p-4">
                 <div className="mb-6 flex items-center justify-between">
@@ -25,10 +26,10 @@ const Toggle = () => {
                     </IconButton>
                 </div>
                 <div className="grid gap-2">
-                    <Button className="bg-[#f26522]">Electronics</Button>
-                    <Button className="bg-[#f26522]">Jewelery</Button>
-                    <Button className="bg-[#f26522]">Men fashion</Button>
-                    <Button className="bg-[#f26522]">Women fashion</Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/cata/electronics">Electronics</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/cata/jewelery">Jewelery</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/cata/men's clothing">Men fashion</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/cata/women's clothing">Women fashion</NavLink></Button>
                 </div>
             </Drawer>
         </React.Fragment>
