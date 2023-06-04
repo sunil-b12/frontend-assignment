@@ -8,6 +8,7 @@ export const productApi = createApi({
     baseUrl: 'https://fakestoreapi.com/'
   }),
   endpoints: (builder) => ({   
+    
     getproducts: builder.query({
       query: (q) => ({
         url: 'products'
