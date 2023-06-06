@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetproductsQuery } from '../features/productApi';
-import {  Bar, Pie } from 'react-chartjs-2';
+import {  Bar, Doughnut  } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 
@@ -60,7 +60,7 @@ const DataVisualization = () => {
                     </div>
                     <div>
                         <h2 className='text-xl font-bold'>Product Popularity Chart</h2>
-                        <Pie data={pieChartData}/>
+                        <Doughnut data={pieChartData}/>
                     </div>
                 </div>
             )}
