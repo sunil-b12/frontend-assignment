@@ -4,6 +4,7 @@ import { useGetproductsByIdQuery } from '../features/productApi';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart, setQuantity } from '../features/userSlice';
+import Review from '../components/Review';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -11,8 +12,10 @@ const ProductDetails = () => {
     const dispatch = useDispatch()
     const nav = useNavigate()
     const { data, isLoading } = useGetproductsByIdQuery(id)
+    const { carts } = useSelector((store) => store.userInfo);
 
 
+    console.log(carts)
     const handleQuantityChange = (newQuantity) => {
         dispatch(setQuantity(newQuantity));
     };
@@ -103,10 +106,14 @@ const ProductDetails = () => {
                                             }
                                         >Add To Cart</button>
                                 }
-
                             </div>
                         </div>
                     </div>
+                    <div className='container mt-9'>
+                        <h3>Product Reviews</h3>
+
+                    </div>
+                    <Review />
                 </div>
             </section >
         </div >

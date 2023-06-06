@@ -33,10 +33,19 @@ export const productApi = createApi({
         }
       })
     }),
+    addReview: builder.mutation({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        body: 'This makes all sense to me!',
+        postId: 3,
+        userId: 5,
+      })
+    })
 
   })
 
 })
 
 
-export const { useGetproductsQuery, useGetproductsByCatagoryQuery, useGetproductsByIdQuery, useGetSearchProductsQuery } = productApi
+export const { useGetproductsQuery, useGetproductsByCatagoryQuery, useGetproductsByIdQuery, useGetSearchProductsQuery, useAddReviewMutation } = productApi
