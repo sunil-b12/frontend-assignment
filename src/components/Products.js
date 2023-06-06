@@ -9,13 +9,15 @@ const Products = () => {
     const [price, setPrice] = useState('');
     const [rating, setRating] = useState('');
 
+
     if (isLoading) {
         return <div className='w-[32%] mx-auto mt-14'>
             <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
         </div>
     }
-    console.log(data)
-    const filteredData = data.filter((product) => {
+    const products = data.products;
+
+    const filteredData = products.filter((product) => {
         if (category !== '' && product.category !== category) {
             return false; // Filter by category
         }
@@ -70,10 +72,13 @@ const Products = () => {
                             onChange={handleCategoryChange}
                         >
                             <option value="">Catagory</option>
-                            <option value="jewelery">Jewelery</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="men's clothing">Men clothing</option>
-                            <option value="women's clothing">Women clothing</option>
+                            <option value="smartphones">Smartphones</option>
+                            <option value="laptops">Laptops</option>
+                            <option value="furniture">Furniture</option>
+                            <option value="groceries">Groceries</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="skincare">Skincare</option>
+                            <option value="home-decoration">Home decoration</option>
                         </select>
                     </div>
 
@@ -95,8 +100,8 @@ const Products = () => {
                     <div className="flex items-center space-x-4 mt-4">
                         <label id="rating" className="text-sm font-bold text-gray-700">Rating:</label>
                         <select id="rating" className="p-2 border border-gray-300 rounded"
-                        value={rating}
-                        onChange={handleRatingChange}
+                            value={rating}
+                            onChange={handleRatingChange}
                         >
                             <option value="">All</option>
                             <option value="4">4 Stars & Up</option>
@@ -111,7 +116,7 @@ const Products = () => {
                     </div>
                 </form>
             </div>
-            <ProductCard data={filteredData} />
+            <ProductCard data={filteredData} isLoading={isLoading}/>
         </div>
     )
 }

@@ -5,6 +5,10 @@
 export const addUser = (user) => {
     localStorage.setItem('user', JSON.stringify(user));
   }
+
+  export const AddReview = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
   
   export const addToCart = (cart) => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -25,6 +29,13 @@ export const addUser = (user) => {
     const data = localStorage.getItem('user');
     return data === null ? null : JSON.parse(data);
   }
+
+    
+  export const setReview = () => {
+    const data = localStorage.getItem('user');
+    return data === null ? null : JSON.parse(data);
+  }
+  
   
   export const getCart = () => {
     const data = localStorage.getItem('cart');

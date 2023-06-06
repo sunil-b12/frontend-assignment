@@ -26,10 +26,11 @@ const Toggle = () => {
                     </IconButton>
                 </div>
                 <div className="grid gap-2">
-                    <Button className="bg-[#f26522]"><NavLink to="/cata/electronics">Electronics</NavLink></Button>
-                    <Button className="bg-[#f26522]"><NavLink to="/cata/jewelery">Jewelery</NavLink></Button>
-                    <Button className="bg-[#f26522]"><NavLink to="/cata/men's clothing">Men fashion</NavLink></Button>
-                    <Button className="bg-[#f26522]"><NavLink to="/cata/women's clothing">Women fashion</NavLink></Button>
+                    
+                    <Button className="bg-[#f26522]"><NavLink to="/category/smartphones">Smartphones</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/category/skincare">Skincare</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/category/furniture">Furniture</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/category/home-decoration">Home decoration</NavLink></Button>
                 </div>
             </Drawer>
         </React.Fragment>

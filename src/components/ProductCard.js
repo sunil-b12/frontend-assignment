@@ -8,30 +8,37 @@ import {
     CardFooter
 } from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setCart } from '../features/userSlice';
+// import { useDispatch } from 'react-redux';
+// import { setCart } from '../features/userSlice';
 
 const ProductCard = (props) => {
-    const { data } = props
+    const { data, isLoading } = props
     const nav = useNavigate();
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const addToCarts = (cart) => {
-        dispatch(setCart(cart));
+    // const addToCarts = (cart) => {
+    //     dispatch(setCart(cart));
+    // }
+
+    if (isLoading) {
+        return <div className='w-[32%] mx-auto mt-14'>
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        </div>
     }
+
     return (
         <div className='bg-white'>
 
-
             <div className='container mt-[2rem] grid-card-06 xl:justify-items-center'>
                 {
-                    data && data.map((data) => {
+                  data.map((data) => {
                         return <Card className="w-96 md:w-[80%] xs:w-full" key={data.id}>
-                            <CardHeader shadow={false} floated={false} className="h-96 cursor-pointer"  >
-                                    <img
-                                        src={data.image}
-                                        className="w-full h-full object-cover"
-                                    />
+                            <CardHeader shadow={false} floated={false} className="h-96 cursor-pointer" onClick={() => nav(`/product_details/${data.id}`)} >
+                                <img
+                                    src={data.thumbnail}
+                                    className="w-full h-full object-cover"
+
+                                />
                             </CardHeader>
                             <CardBody>
                                 <div className="flex items-center justify-between mb-2">

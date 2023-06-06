@@ -13,6 +13,7 @@ import {
 import Toggle from './Toggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from "../../features/userSlice";
+import { useFormik } from "formik";
 
 
 const Header = () => {
@@ -33,6 +34,19 @@ const Header = () => {
 
     },
   ];
+
+  const formik = useFormik({
+    initialValues: {
+      search: ''
+    },
+    onSubmit: (val, { resetForm }) => {
+      resetForm()
+      nav(`products/search/${val.search}`)
+
+    }
+
+  })
+
   return (
     <div className='top-0 left-0  z-30 w-[100%] bg-[#ebba52]'>
       <div className='container grid py-11 gap-5'>
@@ -52,21 +66,24 @@ const Header = () => {
                   </Button>
                 </MenuHandler>
                 <MenuList>
-                  <MenuItem><NavLink to="/cata/electronics">Electronics</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/cata/jewelery">Jewelery</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/cata/men's clothing">Men fashion</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/cata/women's clothing">Women fashion</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/smartphones">Smartphones</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/laptops">Laptops</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/skincare">Skincare</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/automotive">Automotive</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/furniture">Furniture</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/groceries">Groceries</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/home-decoration">Home decoration</NavLink></MenuItem>
                 </MenuList>
               </Menu>
             </div>
             <div className='w-[70%] lg:w-full'>
-              <form className='flex'>
+              <form className='flex' onSubmit={formik.handleSubmit}>
                 <div className='w-full'>
                   <input type="text"
                     name='search'
                     placeholder='Search'
-                    // value={formik.values.search}
-                    // onChange={formik.handleChange}
+                    value={formik.values.search}
+                    onChange={formik.handleChange}
                     className='text-black text-lg outline-none px-3 py-2 w-full rounded-l-lg' />
                 </div>
                 <button type='submit' className='bg-[#f26522] px-5 py-2 border-[#f26522] rounded-r-lg'>

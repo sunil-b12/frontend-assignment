@@ -26,6 +26,7 @@ export const authApi = createApi({
             }),
             invalidatesTags: ['User']
         }),
+        
         getUserById: builder.query({
             query: (q) => ({
               url: '/auth/profile',
@@ -34,7 +35,7 @@ export const authApi = createApi({
               }
             }),
             providesTags: ['User']
-          }),
+          })
     })
 })
 

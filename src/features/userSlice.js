@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, addUser, clearAll, clearCart, getCart, getUser } from "./localStroage";
+import { AddReview, addToCart, addUser, clearAll, clearCart, getCart, getUser, setReview } from "./localStroage";
 
 import { toast } from "react-toastify";
+
 
 
 
 const initialState = {
   user: getUser(),
   carts: getCart(),
+  reviews: setReview(),
   quantity: 0,
 
 };
@@ -32,6 +34,19 @@ export const userSlice = createSlice({
         addToCart(state.carts);
       } else {
         toast("Item Already Add");
+      }
+
+    },
+    setReview: (state, action) => {
+
+      const review = action.payload;
+      const existingItem = state.reviews.find((productReview) => productReview.id === review.id);
+    
+      if (!existingItem) {
+        state.reviews.push(review);
+        AddReview(state.reviews);
+      } else {
+        toast("Reviewa Already Done");
       }
 
     },

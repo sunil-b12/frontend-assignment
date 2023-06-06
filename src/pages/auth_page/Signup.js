@@ -12,6 +12,7 @@ const SignUp = () => {
 
     const [registerUser, { isLoading }] = useUserSignUpMutation();
     const nav = useNavigate();
+    
     const valSchema = Yup.object().shape({
         fullname: Yup.string().required(),
         email: Yup.string().min(5, 'too short').max(30, 'max character 20').required(),

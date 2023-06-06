@@ -22,7 +22,7 @@ const ProductDetails = () => {
     }
 
     const decrement = () => {
-        handleQuantityChange(quantity -1);
+        handleQuantityChange(quantity - 1);
     }
 
 
@@ -35,6 +35,7 @@ const ProductDetails = () => {
 
     const addToCarts = (cart) => {
         dispatch(setCart(cart));
+        formik.resetForm();
     }
 
 
@@ -50,13 +51,13 @@ const ProductDetails = () => {
             <section className="text-gray-700 body-font overflow-hidden bg-white">
                 <div className="container mt-[3rem] mx-auto">
                     <div className="grid grid-cols-2 py-4 md:grid-cols-1">
-                        <img alt="ecommerce" className="w-full h-[500px] object-cover object-center rounded border border-gray-200" src={data.image} />
+                        <img alt="ecommerce" className="w-full h-[500px] object-cover object-center rounded border border-gray-200" src={data.thumbnail} />
                         <div className="w-full mt-7 grid ml-6">
-                            <h2 className="text-sm title-font text-gray-500 tracking-widest">{data.category}</h2>
+                            <h2 className="text-sm font-bold uppercase text-gray-500 tracking-widest">{data.category}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.title}</h1>
                             <div className="flex mb-4">
                                 <span className="flex items-center">
-                                    <span className="text-gray-600 ml-3">Rating:<b className='font-bold  mx-2'>{data.rating.rate}/5</b></span>
+                                    <span className="text-gray-600 ml-3">Rating:<b className='font-bold  mx-2'>{data.rating}/5</b></span>
                                 </span>
                             </div>
                             <p className="leading-relaxed">{data.description}</p>
@@ -94,10 +95,8 @@ const ProductDetails = () => {
                                                     description: data.description,
                                                     category: data.category,
                                                     qty: quantity,
-                                                    image: data.image,
-                                                    rating: {
-                                                        rate: data.rating.rate
-                                                    }
+                                                    image: data.thumbnail,
+                                                    rating: data.rating
                                                 });
                                                 nav('/cart');
                                             }

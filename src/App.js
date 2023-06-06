@@ -12,6 +12,7 @@ import Categories from './pages/Categories';
 import UserProfile from './pages/User/UserProfile';
 import SignUp from './pages/auth_page/Signup';
 import ProductDetails from './pages/ProductDetails';
+import Search from './pages/Search';
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
       <Routes>
         <Route path='/' element={<RootLayOut />} >
           <Route path='/' element={<Home />} />
-          <Route path='/cata/:catagories' element={<Categories />} />
+          <Route path='/category/:catagories' element={<Categories />} />
+          <Route path='products/search/:search' element={<Search />} />
 
 
           <Route element={<AuthRoutes />}>
