@@ -31,6 +31,7 @@ const Toggle = () => {
                     <Button className="bg-[#f26522]"><NavLink to="/category/skincare">Skincare</NavLink></Button>
                     <Button className="bg-[#f26522]"><NavLink to="/category/furniture">Furniture</NavLink></Button>
                     <Button className="bg-[#f26522]"><NavLink to="/category/home-decoration">Home decoration</NavLink></Button>
+                    <Button className="bg-[#f26522]"><NavLink to="/data">Data</NavLink></Button>
                 </div>
             </Drawer>
         </React.Fragment>
