@@ -51,7 +51,7 @@ const SignUp = () => {
     });
 
     return (
-        <div className='max-w-sm mt-16  mx-auto '>
+        <div className='container max-w-sm mt-16  mx-auto '>
             <div>
                 <Card className='place-self-center' color="transparent" shadow={false} >
                     <Typography variant="h4" color="blue-gray">
@@ -60,7 +60,7 @@ const SignUp = () => {
                     <Typography color="gray" className="mt-1 font-normal">
                         Enter your details to register.
                     </Typography>
-                    <form onSubmit={formik.handleSubmit} className="mt-8 w-80 max-w-screen-lg sm:w-96">
+                    <form onSubmit={formik.handleSubmit} className="mt-8 mb-16">
                         <div className="mb-4 flex flex-col  space-y-4">
 
                             <div>
