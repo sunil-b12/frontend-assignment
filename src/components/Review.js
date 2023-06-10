@@ -1,76 +1,100 @@
-import React from 'react'
-import { Textarea } from "@material-tailwind/react";
-import { Select, Option } from "@material-tailwind/react";
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setReview } from '../features/userSlice';
+import { useGetUserByIdQuery } from '../features/authApi';
 import { useNavigate } from 'react-router';
-import { useAddReviewMutation } from '../features/productApi';
-import { setCart } from '../features/userSlice';
+import { nanoid } from '@reduxjs/toolkit';
+import { toast } from "react-toastify";
 
 
-const Reviews = ({ id }) => {
+
+
+const Reviews = (props) => {
+  const nav = useNavigate()
   const dispatch = useDispatch()
-  const nav = useNavigate();
+  const { user } = useSelector((store) => store.userInfo)
+  const { reviews } = useSelector((store) => store.userInfo)
+  console.log(reviews)
+
+  const { data, isLoading } = useGetUserByIdQuery(user?.access_token)
+  const fullName = data?.name || '';
+
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+
   const formik = useFormik({
     initialValues: {
-      rating: '',
-      comment: ''
+      review_id: props.data_id,
+      username: '',
+      comment: '',
+      date: date,
+      id: nanoid()
     },
-
-    onSubmit: async (val, { resetForm }) => {
-      resetForm()
-      try {
-        dispatch(setCart({
-          rating: val.rating,
-          comment: val.comment
-        }));
-        toast.success('Comment Add');
-      } catch (err) {
-        toast.error(err.data.message);
+    onSubmit: (val, { resetForm }) => {
+      if (user) {
+        dispatch(setReview(val));
+        resetForm();
+      } else {
+        nav('/user_login'); // Redirect to the login page if the user is not logged in
       }
     }
-  });
+  })
+
+  useEffect(() => {
+    formik.setFieldValue('username', fullName || '');
+  }, [fullName]);
+
+  if (isLoading) {
+    return <div className='w-[32%] mx-auto mt-14'>
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    </div>
+  }
+
 
   return (
-    <div className='p-4 space-y-7 py-11'>
-
-      <form onSubmit={formik.handleSubmit} >
-        <div className='pl-4 space-y-5'>
-          <h1>Write your Review</h1>
-          <div className="w-44 space-y-2">
-            <p>Rating</p>
-            <Select
-              onChange={(e) => formik.setFieldValue('rating', e)}
-              label="Select" name='rating'>
-              <Option value='1'>Poor</Option>
-              <Option value='2'>Fair</Option>
-              <Option value='3'>Good</Option>
-              <Option value='4'>Very Good</Option>
-              <Option value='5'>Excellent</Option>
-            </Select>
-
-
-          </div>
-          <h2>Comment</h2>
-          <div className="w-96 space-y-5">
-            <Textarea
-              name='comment'
-              id='comment'
-              value={formik.values.comment}
-              onChange={formik.handleChange}
-              label="Message" />
-            <button type='submit' className='text-center bg-black text-white py-1 px-4 rounded'>Submit</button>
-          </div>
-
-
-
+    <section className="bg-white dark:bg-gray-900 py-8 lg:py-16">
+      <div className="max-w-2xl px-4">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Reviews</h2>
         </div>
+        <form onSubmit={formik.handleSubmit} className="mb-6">
+          <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <label htmlFor="comment" className="sr-only">Your comment</label>
+            <textarea id="comment" name="comment" rows="6"
+              className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+              placeholder="Write a comment..." required
+              onChange={formik.handleChange}
+              value={formik.values.comment}
+            ></textarea>
+          </div>
+          <button type="submit"
+            className="inline-flex items-center py-2.5 px-4 text-xs font-semibold text-center text-white bg-[#f26522] rounded-lg border-none">
+            Post comment
+          </button>
+        </form>
+        {
+          reviews.map((review) => {
+            if (props.data_id === review.review_id) {
+              return <article className="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900" key={review.id}>
+                <footer className="flex justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                      <img
+                        className="mr-2 w-6 h-6 rounded-full"
+                        src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                        alt="Michael Gough" />{review.username}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400"><time>{review.date}</time></p>
+                  </div>
+                </footer>
+                <p className="text-gray-500 dark:text-gray-400">{review.comment}</p>
+              </article>
+            }
+          })
+        }
+      </div>
+    </section>
+  );
+};
 
-      </form>
-
-    </div>
-  )
-}
-
-export default Reviews
+export default Reviews;

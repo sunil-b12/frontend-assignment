@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AddReview, addToCart, addUser, clearAll, clearCart, getCart, getUser, setReview } from "./localStroage";
+import {addToCart, addUser, clearAll, clearCart, getCart, getUser, getReview, addReview  } from "./localStroage";
 
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const initialState = {
   user: getUser(),
   carts: getCart(),
-  reviews: setReview(),
+  reviews: getReview() || [], // Initialize as an empty array if null or undefined
   quantity: 0,
 
 };
@@ -25,7 +25,6 @@ export const userSlice = createSlice({
     },
 
     setCart: (state, action) => {
-
       const item = action.payload;
       const existingItem = state.carts.find((cartItem) => cartItem.id === item.id);
     
@@ -34,19 +33,6 @@ export const userSlice = createSlice({
         addToCart(state.carts);
       } else {
         toast("Item Already Add");
-      }
-
-    },
-    setReview: (state, action) => {
-
-      const review = action.payload;
-      const existingItem = state.reviews.find((productReview) => productReview.id === review.id);
-    
-      if (!existingItem) {
-        state.reviews.push(review);
-        AddReview(state.reviews);
-      } else {
-        toast("Reviewa Already Done");
       }
 
     },
@@ -98,8 +84,20 @@ export const userSlice = createSlice({
         item.qty--;
       }
     },
+
+    setReview: (state, action) =>{
+      const item = action.payload;
+      const existingItem = state.reviews.find((cartItem) => cartItem.id === item.id);
+    
+      if (!existingItem) {
+        state.reviews.push(item);
+        addReview(state.reviews);
+      } else {
+        toast("Review Already Add");
+      }
+    }
   }
 });
-export const { clearData, setUser, updateCart, clearCarts, updateUser, setCart, removeFromCart, setQuantity, incrementQuantity, decrementQuantity} = userSlice.actions;
+export const { clearData, setUser, updateCart, clearCarts, updateUser, setCart, removeFromCart, setQuantity, incrementQuantity, decrementQuantity, setReview} = userSlice.actions;
 
 export default userSlice.reducer;

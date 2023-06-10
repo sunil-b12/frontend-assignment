@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useGetproductsByIdQuery } from '../features/productApi';
 import { useFormik } from 'formik';
@@ -12,10 +12,8 @@ const ProductDetails = () => {
     const dispatch = useDispatch()
     const nav = useNavigate()
     const { data, isLoading } = useGetproductsByIdQuery(id)
-    const { carts } = useSelector((store) => store.userInfo);
 
-
-    console.log(carts)
+    
     const handleQuantityChange = (newQuantity) => {
         dispatch(setQuantity(newQuantity));
     };
@@ -109,11 +107,7 @@ const ProductDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='container mt-9'>
-                        <h3>Product Reviews</h3>
-
-                    </div>
-                    <Review />
+                    <Review data_id={data.id}/>
                 </div>
             </section >
         </div >
