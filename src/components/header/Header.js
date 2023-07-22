@@ -78,7 +78,7 @@ const Header = () => {
                 <div className='w-full'>
                   <input type="text"
                     name='search'
-                    placeholder='Search'
+                    placeholder='Search by catagories'
                     value={formik.values.search}
                     onChange={formik.handleChange}
                     className='text-black text-lg outline-none px-3 py-2 w-full rounded-l-lg' />
