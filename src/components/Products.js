@@ -1,23 +1,25 @@
-import React, { useState } from 'react'
-import { useGetproductsQuery } from '../features/productApi'
+import React, { useState } from 'react';
+import { useGetproductsQuery } from '../features/productApi';
 import ProductCard from './ProductCard';
 
 const Products = () => {
-
     const { data, isLoading } = useGetproductsQuery();
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
     const [rating, setRating] = useState('');
 
-
-    if (isLoading) {
-        return <div className='w-[32%] mx-auto mt-14'>
-            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
-        </div>
+    if (isLoading || !data) {
+        // Loading state or no data yet, display a loading indicator or a message.
+        return (
+            <div className='w-[32%] mx-auto mt-14'>
+                <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+        );
     }
-    const products = data.products;
 
-    const filteredData = products.filter((product) => {
+
+
+    const filteredData = data.filter((product) => {
         if (category !== '' && product.category !== category) {
             return false; // Filter by category
         }
@@ -25,7 +27,7 @@ const Products = () => {
         if (price !== '') {
             const [minPrice, maxPrice] = price.split('-');
             if (minPrice && Number(product.price) < Number(minPrice)) {
-                return <h2>No Data Found</h2>// Filter by minimum price
+                return false; // Filter by minimum price
             }
             if (maxPrice && Number(product.price) > Number(maxPrice)) {
                 return false; // Filter by maximum price
@@ -54,7 +56,6 @@ const Products = () => {
         setRating(e.target.value);
     };
 
-
     return (
         <div className='bg-white'>
             <div className='container pt-9'>
@@ -71,14 +72,11 @@ const Products = () => {
                             value={category}
                             onChange={handleCategoryChange}
                         >
-                            <option value="">Catagory</option>
-                            <option value="smartphones">Smartphones</option>
-                            <option value="laptops">Laptops</option>
-                            <option value="furniture">Furniture</option>
-                            <option value="groceries">Groceries</option>
-                            <option value="automotive">Automotive</option>
-                            <option value="skincare">Skincare</option>
-                            <option value="home-decoration">Home decoration</option>
+                            <option value="">Category</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="men's clothing">Mans Clothing</option>
+                            <option value="jewelery">Jewelery</option>
+                            <option value="women's clothing">Womens Clothing</option>
                         </select>
                     </div>
 
@@ -116,9 +114,9 @@ const Products = () => {
                     </div>
                 </form>
             </div>
-            <ProductCard data={filteredData} isLoading={isLoading}/>
+            <ProductCard data={filteredData} isLoading={isLoading} />
         </div>
-    )
+    );
 }
 
-export default Products
+export default Products;

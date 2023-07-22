@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {addToCart, addUser, clearAll, clearCart, getCart, getUser, getReview, addReview  } from "./localStroage";
+import {addToCart, addUser, clearAll, clearCart, getCart, getUser} from "./localStroage";
 
 import { toast } from "react-toastify";
 
@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 const initialState = {
   user: getUser(),
   carts: getCart(),
-  reviews: getReview() || [], // Initialize as an empty array if null or undefined
   quantity: 0,
 
 };
@@ -85,19 +84,9 @@ export const userSlice = createSlice({
       }
     },
 
-    setReview: (state, action) =>{
-      const item = action.payload;
-      const existingItem = state.reviews.find((cartItem) => cartItem.id === item.id);
-    
-      if (!existingItem) {
-        state.reviews.push(item);
-        addReview(state.reviews);
-      } else {
-        toast("Review Already Add");
-      }
-    }
+   
   }
 });
-export const { clearData, setUser, updateCart, clearCarts, updateUser, setCart, removeFromCart, setQuantity, incrementQuantity, decrementQuantity, setReview} = userSlice.actions;
+export const { clearData, setUser, updateCart, clearCarts, updateUser, setCart, removeFromCart, setQuantity, incrementQuantity, decrementQuantity} = userSlice.actions;
 
 export default userSlice.reducer;

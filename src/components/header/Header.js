@@ -66,13 +66,10 @@ const Header = () => {
                   </Button>
                 </MenuHandler>
                 <MenuList>
-                  <MenuItem><NavLink to="/category/smartphones">Smartphones</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/laptops">Laptops</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/skincare">Skincare</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/automotive">Automotive</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/furniture">Furniture</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/groceries">Groceries</NavLink></MenuItem>
-                  <MenuItem><NavLink to="/category/home-decoration">Home decoration</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/electronics">Electronics</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/men's clothing">Mans Clothing</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/jewelery">Jewelery</NavLink></MenuItem>
+                  <MenuItem><NavLink to="/category/women's clothing">Womens Clothing"</NavLink></MenuItem>
                 </MenuList>
               </Menu>
             </div>

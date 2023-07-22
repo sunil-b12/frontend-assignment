@@ -13,7 +13,6 @@ import UserProfile from './pages/User/UserProfile';
 import SignUp from './pages/auth_page/Signup';
 import ProductDetails from './pages/ProductDetails';
 import Search from './pages/Search';
-import DataVisualization from './pages/DataVisualization';
 
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/category/:catagories' element={<Categories />} />
           <Route path='products/search/:search' element={<Search />} />
-          <Route path='/data' element={<DataVisualization />} />
 
 
           <Route element={<AuthRoutes />}>
